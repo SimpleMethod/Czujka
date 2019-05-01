@@ -23,7 +23,6 @@ public class BotController {
     private final String botChannel;
 
     /**
-     *
      * @param token Token for query authorization
      * @param verificationToken Token confirming the authenticity of the request
      * @param botChannel Channel where bot can wite notifications
@@ -50,13 +49,13 @@ public class BotController {
 
 
     /**
-     *  *https://api.slack.com/methods/chat.scheduleMessage
+     * https://api.slack.com/methods/chat.scheduleMessage
      * Method schedules a message for delivery to a public channel, private channel, or direct message/IM channel at a specified time in the future.
      * Tier 3
-     * @param channel
-     * @param post_at
-     * @param text
-     * @return
+     * @param channel Channel on which the bot can write.
+     * @param post_at Determining the date of sending the message at timestamp.
+     * @param text Required argument, simple text.
+     * @return JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject postScheduleMessage(String channel, Integer post_at, String text)
     {
@@ -101,14 +100,14 @@ public class BotController {
     }
 
     /**
-     *https://api.slack.com/methods/chat.scheduleMessage
+     * https://api.slack.com/methods/chat.scheduleMessage
      * Method schedules a message for delivery to a public channel, private channel, or direct message/IM channel at a specified time in the future.
      * Tier 3
-     * @param channel
-     * @param post_at
-     * @param text
-     * @param blocks
-     * @return
+     * @param channel Channel on which the bot can write.
+     * @param post_at Determining the date of sending the message at timestamp.
+     * @param text Required argument, send one space.
+     * @param blocks  Send as JSON -> https://api.slack.com/tools/block-kit-builder .
+     * @return JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject postRichScheduleMessage(String channel, Integer post_at, String text, String blocks)
     {
@@ -154,11 +153,11 @@ public class BotController {
 
     /**
      * https://api.slack.com/methods/chat.postMessage
-     * This method posts a message to a public channel, private channel, or direct message
-     * TIER: Special (Posting messages	1 per second Incoming webhooks	1 per second)
-     * @param channel
+     * This method posts a message to a public channel, private channel, or direct message.
+     * TIER: Special (Posting messages	1 per second Incoming webhooks	1 per second).
+     * @param channel Channel on which the bot can write.
      * @param text Required argument, simple text.
-     * @return
+     * @return JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject postChatMessage(String channel, String text)
     {
@@ -203,12 +202,12 @@ public class BotController {
 
     /**
      * https://api.slack.com/methods/chat.postMessage
-     * This method posts a message to a public channel, private channel, or direct message
-     * TIER: Special ( Posting messages	1 per second Incoming webhooks	1 per second )
-     * @param channel
+     * This method posts a message to a public channel, private channel, or direct message.
+     * TIER: Special (Posting messages	1 per second Incoming webhooks	1 per second).
+     * @param channel Channel on which the bot can write.
      * @param text Required argument, send one space.
-     * @param blocks Send as JSON -> https://api.slack.com/tools/block-kit-builder
-     * @return
+     * @param blocks Send as JSON -> https://api.slack.com/tools/block-kit-builder .
+     * @return  JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject postRichChatMessage(String channel, String text, String blocks)
     {
@@ -256,7 +255,7 @@ public class BotController {
      * Method opens a direct message channel with another member of your Slack team.
      * TIER:4
      * @param user User to open a direct message channel with.
-     * @return
+     * @return Returns the private channel of the specified user.
      */
     public String getUserPrivateChannelID(String user)
     {
@@ -300,7 +299,7 @@ public class BotController {
      * https://api.slack.com/methods/api.test
      * Method to test connection.
      * TIER 4
-     * @return
+     * @return  JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject getApiStatus()
     {
@@ -343,7 +342,7 @@ public class BotController {
      * https://api.slack.com/methods/auth.test
      *  Method checks authentication and tells "you" who you are, even if you might be a bot.
      *  TIER: Special ( Posting messages	1 per second Incoming webhooks	1 per second )
-     * @return
+     * @return  JSON object with information on the outcome of the operation.
      */
     public org.json.JSONObject postAuthTest()
     {

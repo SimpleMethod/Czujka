@@ -1,8 +1,5 @@
 package pl.simplemethod.czujka.botparser;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
-
 public class StringParser {
 
     // Use only for response!
