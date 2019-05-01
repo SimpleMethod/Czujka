@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import pl.simplemethod.czujka.botparser.BotController;
 import pl.simplemethod.czujka.botparser.StringParser;
+import pl.simplemethod.czujka.model.Users;
+import pl.simplemethod.czujka.repository.UsersRepository;
+import pl.simplemethod.czujka.repository.UsersRepositoryImpl;
 
 
 import javax.validation.ConstraintViolationException;
+import java.sql.Date;
 
 @RestController
 @Validated
@@ -83,6 +87,11 @@ public class CzujkaController {
         logger.info(botController.postRichChatMessage(botController.getbotChannel()," ",stringParser.getSignUpGlobalBlock(user_name,text)));
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
+
+        UsersRepository repository = new UsersRepositoryImpl();
+        Users user = new Users(user_name, new Date(1111111111));
+        repository.save(user);
+
         return new ResponseEntity<>(stringParser.getSignUpPerson(user_name,text), headers, HttpStatus.OK);
     }
 
