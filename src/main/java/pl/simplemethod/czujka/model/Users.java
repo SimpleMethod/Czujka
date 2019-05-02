@@ -1,12 +1,7 @@
 package pl.simplemethod.czujka.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import java.sql.Date;
+import javax.persistence.*;
+import java.sql.Time;
 
 @Entity
 @Table(name = "users")
@@ -14,13 +9,14 @@ public class Users {
     @Id
     @GeneratedValue
     private Long id;
+    @Column(unique = true, nullable = false)
     private String username;
-    @DateTimeFormat(pattern = "dd.MM.yyyy - HH:mm")
-    private Date time;
+    @Column(nullable = false)
+    private Time time;
 
     public Users() {}
 
-    public Users(String username, Date time) {
+    public Users(String username, Time time) {
         this.username = username;
         this.time = time;
     }
@@ -41,11 +37,16 @@ public class Users {
         this.username = username;
     }
 
-    public Date getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(Date time) {
+    public void setTime(Time time) {
         this.time = time;
+    }
+
+    @Override
+    public String toString() {
+        return "User:" + username + "\t time :" + time;
     }
 }
