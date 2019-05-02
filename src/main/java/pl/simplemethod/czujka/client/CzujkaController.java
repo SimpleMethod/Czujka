@@ -2,7 +2,9 @@ package pl.simplemethod.czujka.client;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
@@ -15,10 +17,13 @@ import pl.simplemethod.czujka.repository.UsersRepository;
 
 
 import javax.validation.ConstraintViolationException;
+import java.io.IOException;
+import java.io.StringWriter;
 import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -69,8 +74,6 @@ public class CzujkaController {
         return new ResponseEntity<>("", headers, HttpStatus.valueOf(201));
     }
 
-
-    // TODO: 01.05.2019 Zwrócenie listy osób zamykający  
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerLists(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
@@ -79,12 +82,26 @@ public class CzujkaController {
         headers.add("Content-Type", "application/json");
 
         List<Users> users = repository.findAllByOrderByTimeAsc();
+        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
 
-        //todo zwracac liste json
-        users.forEach(System.out::println);
+       for (int i = 0; i < users.size(); i++) {
+           org.json.simple.JSONObject object = new org.json.simple.JSONObject();
+           System.out.println(users.get(i).getUsername());
+           object.put("Time", users.get(i).getTime());
+           object.put("Id", users.get(i).getId());
+           object.put("UserName", users.get(i).getUsername());
 
-        //uwaga ustawione na komunikat o wypisaniu
-        return new ResponseEntity<>(stringParser.getUnsubscribeGlobalBlock(user_name), headers, HttpStatus.valueOf(201));
+           array.add(object);
+       }
+
+        StringWriter jsonString = new StringWriter();
+
+        try {
+            array.writeJSONString(jsonString);
+        } catch (IOException e) {
+
+        }
+        return new ResponseEntity<>(jsonString.toString(), headers, HttpStatus.valueOf(201));
     }
 
 
@@ -100,57 +117,59 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-
         //usuwa wszystkie znaki poza cyframi i :
         text = text.replaceAll("([^0-9:])+", "");
 
-        if((text.length() > 4 && text.charAt(2) != ':') || text.length() < 4) {
-            //todo Zakończ z  komunikatem o błędnie wpisanym czasie, za dużo lub za malo cyfr lub źle wpisany dwukropek
-        } else if(text.length() == 4 && !text.contains(":")) {
+        if ((text.length() > 4 && text.charAt(2) != ':') || text.length() < 4) {
+            String channel = botController.getUserPrivateChannelID(user_name);
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEnty());
+
+        } else if (text.length() == 4 && !text.contains(":")) {
             //dodaje : do parsowania czasu ze stringa
             StringBuilder builder = new StringBuilder(text);
             builder.insert(2, ':');
             text = builder.toString();
-
         }
 
         Time user_time = Time.valueOf(LocalTime.parse(text));
         Users find = repository.getUserByUsername(user_name);
         Users user = new Users(user_name, user_time);
 
-        //sprawdzamy czy uzytkownik jest juz w bazie
-        if (find != null) {
-            //todo zwroc komunikat o zmianie czasu moze byc zrealizowane z komunikatem ponizej
-            repository.setUserTime(user_time, user_name);
-
-            //zwraca ile osob jest przed toba do zamkniecia biura ; 0=zamykasz
-            int que = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
-            if(que == 0) {
-                //pobieramy przedostatniego uzytkownika
-                String penultimateUser = repository.getPenultimateUserInQue();
-
-                if(penultimateUser != null) {
-                    //todo WYSLIJ WIADOMOSC DO UZYTKOWNIKA ZE NIE JEST OSTATNI
-                    System.out.println(penultimateUser + "Juz nie jestes ostatni !");
-                }
-
-                //todo WYSLIJ UZYTKOWNIKOWI INFO ZE OSTATNI
-                System.out.println("Jestes ostatni w kolejce! ZAMYKASZ :)");
+        try {
+            if (find != null) {
+                repository.setUserTime(user_time, user_name);
             } else {
-                //todo ZWROC KOMUNIKAT O NUMERZE W KOLEJCE
-                System.out.println("Jesteś " + que + 1 + " do zamkniecia biura");
+                repository.save(user);
+            }
+        } catch (Exception e) {
+            String channel = botController.getUserPrivateChannelID(user_name);
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonNull());
+        }
+
+        //zwraca ile osob jest przed toba do zamkniecia biura ; 0=zamykasz
+        Integer que = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
+        if (que == 0) {
+            //pobieramy przedostatniego uzytkownika
+            String penultimateUser = repository.getPenultimateUserInQue();
+
+            if (penultimateUser != null) {
+                String channel = botController.getUserPrivateChannelID(penultimateUser);
+                botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonFound());
             }
 
+            String channel = botController.getUserPrivateChannelID(penultimateUser);
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
+
         } else {
-            //todo trycatch ?
-            repository.save(user);
+            String channel = botController.getUserPrivateChannelID(user_name);
+            botController.postRichChatMessage(channel, " ", stringParser.getQueuePerson(Integer.toString(que + 1)));
         }
+
 
         return new ResponseEntity<>(stringParser.getSignUpPerson(user_name, text), headers, HttpStatus.OK);
     }
 
 
-    // TODO: 01.05.2019 Usunięcie użytkownika z bazy danych
     @PostMapping(path = "/czujka/wypisz", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerRemove(@RequestParam("token") String token, @RequestParam("user_name") String user_name) {
@@ -165,11 +184,20 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        String penultimateUser = repository.getPenultimateUserInQue();
-        //todo zwroc komunikat ze sie wypisal
-        repository.delete(repository.getUserByUsername(user_name));
-        //todo napisz komunikat do penultimateUser ze jest ostatni
+        String penultimateUser = "";
 
-        return new ResponseEntity<>(stringParser.getUnsubscribePerson(), headers, HttpStatus.OK);
+        try {
+            penultimateUser = repository.getPenultimateUserInQue();
+
+            repository.delete(repository.getUserByUsername(user_name));
+
+        } catch (Exception exception) {
+            return new ResponseEntity<>(stringParser.getLeavePersonNull(), headers, HttpStatus.OK);
+        }
+
+        String channel = botController.getUserPrivateChannelID(penultimateUser);
+        botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
+
+        return new ResponseEntity<>(stringParser.getLeavePerson(), headers, HttpStatus.OK);
     }
 }
