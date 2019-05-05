@@ -9,10 +9,13 @@ import org.springframework.stereotype.Repository;
 import pl.simplemethod.czujka.model.RoomStatus;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Component
 public interface RoomStatusRepository extends JpaRepository<RoomStatus, Long> {
+
+    List<RoomStatus> findAllByRoomNumberOrderByRoomNumber();
 
     @Modifying
     @Transactional

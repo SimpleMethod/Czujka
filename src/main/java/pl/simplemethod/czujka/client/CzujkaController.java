@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import pl.simplemethod.czujka.botparser.BotController;
 import pl.simplemethod.czujka.botparser.StringParser;
+import pl.simplemethod.czujka.model.RoomStatus;
 import pl.simplemethod.czujka.model.Users;
+import pl.simplemethod.czujka.repository.RoomStatusRepository;
 import pl.simplemethod.czujka.repository.UsersRepository;
 
 
@@ -44,6 +46,8 @@ public class CzujkaController {
 
     @Autowired
     private UsersRepository repository;
+    @Autowired
+    private RoomStatusRepository roomRepository;
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -71,7 +75,27 @@ public class CzujkaController {
         System.out.println(httpEntity.getBody());
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
-        return new ResponseEntity<>("", headers, HttpStatus.valueOf(201));
+
+        List<RoomStatus> rooms = roomRepository.findAllByRoomNumberOrderByRoomNumber();
+        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
+
+        for (int i = 0; i < rooms.size(); i++) {
+            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
+            System.out.println(rooms.get(i).getRoomNumber());
+            object.put("RoomNumber", rooms.get(i).getRoomNumber());
+            object.put("Id", rooms.get(i).getId());
+            object.put("Status", rooms.get(i).isOpen());
+
+            array.add(object);
+        }
+
+        StringWriter jsonString = new StringWriter();
+
+        try {
+            array.writeJSONString(jsonString);
+        } catch (IOException e) {}
+
+        return new ResponseEntity<>(jsonString.toString(), headers, HttpStatus.valueOf(201));
     }
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
