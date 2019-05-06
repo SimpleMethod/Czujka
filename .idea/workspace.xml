@@ -8,8 +8,7 @@
   <component name="ChangeListManager">
     <list default="true" id="f79e31a7-6244-4beb-993a-44daf9733a88" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/RoomStatusRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/RoomStatusRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -67,61 +66,58 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/RoomStatusRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/UsersRepository.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-6">
-              <caret column="6" lean-forward="true" selection-start-column="6" selection-end-column="6" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaApplication.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
+            <state relative-caret-position="792">
+              <caret line="35" selection-start-line="35" selection-end-line="35" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/BotController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="7662">
+              <caret line="396" column="13" selection-start-line="396" selection-start-column="13" selection-end-line="396" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2-spring.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="355">
+              <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/StringParser.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="284">
+              <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="45">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaController.java">
+        <entry file="file://$PROJECT_DIR$/pom.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="100">
-              <caret line="111" column="80" lean-forward="true" selection-start-line="111" selection-start-column="80" selection-end-line="111" selection-end-column="80" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/model/RoomStatus.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="10" column="7" lean-forward="true" selection-start-line="10" selection-start-column="7" selection-end-line="10" selection-end-column="7" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="749">
+              <caret line="107" column="8" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="8" />
             </state>
           </provider>
         </entry>
@@ -143,6 +139,7 @@
       <find>block</find>
       <find>getu</find>
       <find>users</find>
+      <find>starter-web</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -161,10 +158,8 @@
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/model/RoomMap.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/model/roomStatus.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/model/RoomStatus.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/UsersRepositoryImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/model/Users.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/UsersRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/StringParser.java" />
         <option value="$APPLICATION_CONFIG_DIR$/consoles/.datagrid/cell" />
@@ -173,6 +168,8 @@
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaApplication.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/RoomStatusRepository.java" />
         <option value="$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/application.properties" />
+        <option value="$PROJECT_DIR$/pom.xml" />
       </list>
     </option>
   </component>
@@ -202,8 +199,9 @@
     </treeState>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="682" />
-    <option name="width" value="683" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1366" />
     <option name="height" value="768" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -212,42 +210,44 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="czujka" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -255,8 +255,8 @@
               <item name="botparser" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
@@ -264,51 +264,22 @@
               <item name="client" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
               <item name="czujka" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="czujka" type="462c0819:PsiDirectoryNode" />
-              <item name="repository" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Czujka" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-            </path>
-            <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-            </path>
-            <path>
-              <item name="Czujka" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
-              <item name="Database Consoles" type="d62648e6:ScratchProjectViewPane$MyRootNode" />
-              <item name="342f232f-ce10-46c4-900d-b7ee7599df03" type="1e004dc1:ScratchProjectViewPane$MyRootNode$1$1" />
+              <item name="czujka" type="b2602c69:ProjectViewProjectNode" />
+              <item name="czujka" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -481,7 +452,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="85499000" />
+    <option name="totallyTimeSpent" value="85928000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -493,10 +464,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="-1" width="1366" height="768" extended-state="6" />
+    <frame x="-8" y="-8" width="2576" height="1416" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20378788" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.15063593" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -519,12 +490,12 @@
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="bottom" id="Database Changes" order="13" weight="0.32919255" />
       <window_info anchor="bottom" id="Version Control" order="14" />
-      <window_info anchor="bottom" id="Application Servers" order="15" weight="0.32919255" />
+      <window_info anchor="bottom" id="Application Servers" order="15" visible="true" weight="0.159109" />
       <window_info anchor="bottom" id="Database Console" order="16" weight="0.32919255" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="Maven" order="3" weight="0.32954547" />
+      <window_info anchor="right" id="Maven" order="3" visible="true" weight="0.1709062" />
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
       <window_info anchor="right" id="Database" order="6" weight="0.22575757" />
@@ -591,50 +562,25 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/CollectorResponce.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/log4j2-spring.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="355">
+          <caret line="39" column="17" selection-start-line="39" selection-start-column="17" selection-end-line="39" selection-end-column="17" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="101" column="21" lean-forward="true" selection-start-line="101" selection-start-column="21" selection-end-line="101" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/hibernate_sequence">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/Programowanie/JDK/jdk8/src.zip!/java/sql/Time.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="109" column="18" selection-start-line="109" selection-start-column="18" selection-end-line="109" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/hibernate_sequence" />
+    <entry file="jar://$USER_HOME$/Programowanie/JDK/jdk8/src.zip!/java/sql/Time.java" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/application.properties">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="34" lean-forward="true" selection-start-line="7" selection-start-column="34" selection-end-line="7" selection-end-column="34" />
+        <state relative-caret-position="45">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
         </state>
       </provider>
     </entry>
-    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/users">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/users" />
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/BotController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5505">
-          <caret line="384" column="14" selection-start-line="384" selection-start-column="14" selection-end-line="384" selection-end-column="14" />
+        <state relative-caret-position="7662">
+          <caret line="396" column="13" selection-start-line="396" selection-start-column="13" selection-end-line="396" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -643,44 +589,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/botparser/StringParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="31" column="31" selection-start-line="31" selection-start-column="31" selection-end-line="31" selection-end-column="31" />
-          <folding>
-            <element signature="e#2985#2986#0" expanded="true" />
-            <element signature="e#3025#3026#0" expanded="true" />
-            <element signature="e#3557#3558#0" expanded="true" />
-            <element signature="e#3595#3596#0" expanded="true" />
-            <element signature="e#3633#3634#0" expanded="true" />
-            <element signature="e#3667#3668#0" expanded="true" />
-            <element signature="e#3716#3717#0" expanded="true" />
-            <element signature="e#3761#3762#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="284">
+          <caret line="61" column="5" selection-start-line="61" selection-start-column="5" selection-end-line="61" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/UsersRepositoryImpl.java" />
-    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/342f232f-ce10-46c4-900d-b7ee7599df03/console.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="63" selection-start-column="63" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/342f232f-ce10-46c4-900d-b7ee7599df03/console.sql" />
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/repository/test.java" />
-    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/room_status">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="das://342f232f-ce10-46c4-900d-b7ee7599df03/schema/openthejar/table/room_status" />
     <entry file="file://$PROJECT_DIR$/src/main/java/pl/simplemethod/czujka/client/CzujkaApplication.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="42" selection-start-line="20" selection-start-column="42" selection-end-line="20" selection-end-column="42" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="792">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
         </state>
       </provider>
     </entry>
@@ -731,6 +652,13 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="749">
+          <caret line="107" column="8" selection-start-line="107" selection-start-column="8" selection-end-line="107" selection-end-column="8" />
         </state>
       </provider>
     </entry>
