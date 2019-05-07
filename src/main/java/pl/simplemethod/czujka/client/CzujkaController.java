@@ -68,7 +68,6 @@ public class CzujkaController {
     }
 
 
-    // TODO: 01.05.2019 Wygenerowanie mapy  i zwrocenie jej
     @PostMapping(path = "/czujka/mapa", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerMaps(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
@@ -76,24 +75,28 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-//        List<RoomStatus> rooms = roomRepository.findAllByRoomNumberOrderByRoomNumber();
-//        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
-//
-//        for (int i = 0; i < rooms.size(); i++) {
-//            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
-//            System.out.println(rooms.get(i).getRoomNumber());
-//            object.put("RoomNumber", rooms.get(i).getRoomNumber());
-//            object.put("Id", rooms.get(i).getId());
-//            object.put("Status", rooms.get(i).isOpen());
-//
-//            array.add(object);
-//        }
+        List<RoomStatus> rooms = roomRepository.findAll();
+
+        //sortowanie opcjonalnie ?
+        rooms.sort(Comparator.comparing(RoomStatus::getRoomNumber));
+
+        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
+
+        for (int i = 0; i < rooms.size(); i++) {
+            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
+            System.out.println(rooms.get(i).getRoomNumber());
+            object.put("RoomNumber", rooms.get(i).getRoomNumber());
+            object.put("Id", rooms.get(i).getId());
+            object.put("Status", rooms.get(i).isOpen());
+
+            array.add(object);
+        }
 
         StringWriter jsonString = new StringWriter();
 
-//        try {
-//            array.writeJSONString(jsonString);
-//        } catch (IOException e) {}
+        try {
+            array.writeJSONString(jsonString);
+        } catch (IOException e) {}
 
         return new ResponseEntity<>(jsonString.toString(), headers, HttpStatus.valueOf(201));
     }
