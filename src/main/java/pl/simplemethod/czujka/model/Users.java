@@ -9,7 +9,7 @@ public class Users {
     @Id
     @GeneratedValue
     private Long id;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true, nullable = false, length = 100)
     private String username;
     @Column(nullable = false)
     private Time time;

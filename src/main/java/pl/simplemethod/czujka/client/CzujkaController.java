@@ -68,7 +68,6 @@ public class CzujkaController {
     }
 
 
-    // TODO: 01.05.2019 Wygenerowanie mapy  i zwrocenie jej
     @PostMapping(path = "/czujka/mapa", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerMaps(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
@@ -76,7 +75,11 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<RoomStatus> rooms = roomRepository.findAllByRoomNumberOrderByRoomNumber();
+        List<RoomStatus> rooms = roomRepository.findAll();
+
+        //sortowanie opcjonalnie ?
+        rooms.sort(Comparator.comparing(RoomStatus::getRoomNumber));
+
         org.json.simple.JSONArray array = new org.json.simple.JSONArray();
 
         for (int i = 0; i < rooms.size(); i++) {

@@ -15,7 +15,7 @@ import java.util.List;
 @Component
 public interface RoomStatusRepository extends JpaRepository<RoomStatus, Long> {
 
-    List<RoomStatus> findAllByRoomNumberOrderByRoomNumber();
+    List<RoomStatus> findAll();
 
     @Modifying
     @Transactional
