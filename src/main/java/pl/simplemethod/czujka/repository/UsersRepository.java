@@ -29,6 +29,6 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     @Query(value = "SELECT COUNT(*) FROM users WHERE time > :UserTime", nativeQuery = true)
     Integer getYourQue(@Param("UserTime")Time time);
 
-    @Query(value = "SELECT username FROM users ORDER BY users.time DESC LIMIT 1 offset 1", nativeQuery = true)
+    @Query(value = "SELECT user_id FROM users ORDER BY users.time DESC LIMIT 1 offset 1", nativeQuery = true)
     String getPenultimateUserInQue();
 }

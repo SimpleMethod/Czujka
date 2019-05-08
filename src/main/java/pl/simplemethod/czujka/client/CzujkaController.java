@@ -135,7 +135,7 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/zamykam", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerSave(HttpEntity<String> httpEntity, @RequestParam("token") String token, @RequestParam("user_name") String user_name, @RequestParam("text") String text) {
+    ResponseEntity<String> controllerSave(HttpEntity<String> httpEntity, @RequestParam("token") String token, @RequestParam("user_name") String user_name, @RequestParam("text") String text, @RequestParam("user_id")String user_id) {
         if (!botController.tokenAuth(token)) {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
@@ -145,7 +145,7 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        String channel = botController.getUserPrivateChannelID(user_name);
+        String channel = botController.getUserPrivateChannelID(user_id);
         //usuwa wszystkie znaki poza cyframi i :
         text = text.replaceAll("([^0-9:])+", "");
 
@@ -159,40 +159,39 @@ public class CzujkaController {
             text = builder.toString();
         }
 
-        //przechwytywanie
         Time user_time = Time.valueOf(LocalTime.MIN);
         try {
             user_time = Time.valueOf(LocalTime.parse(text));
         } catch (DateTimeException e) {
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
             return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.BAD_REQUEST);
         }
 
         Users find = repository.getUserByUsername(user_name);
-        Users user = new Users(user_name, user_time);
 
         try {
             if (find != null) {
                 repository.setUserTime(user_time, user_name);
             } else {
+                Users user = new Users(user_name, user_time, user_id);
                 repository.save(user);
             }
         } catch (Exception e) {
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonNull());
         }
 
-        //zwraca ile osob jest przed toba do zamkniecia biura ; 0=zamykasz
         Integer que = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
+        System.out.println("QUEUE: " + que);
+
         if (que == 0) {
-            //pobieramy przedostatniego uzytkownika
             String penultimateUser = repository.getPenultimateUserInQue();
+            System.out.println(penultimateUser);
 
             if (penultimateUser != null) {
                 channel = botController.getUserPrivateChannelID(penultimateUser);
                 botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonFound());
             }
 
-            channel = botController.getUserPrivateChannelID(penultimateUser);
+            channel = botController.getUserPrivateChannelID(user_id);
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
 
         } else {
@@ -222,7 +221,6 @@ public class CzujkaController {
 
         try {
             penultimateUser = repository.getPenultimateUserInQue();
-
             repository.delete(repository.getUserByUsername(user_name));
 
         } catch (Exception exception) {
@@ -230,6 +228,7 @@ public class CzujkaController {
         }
 
         String channel = botController.getUserPrivateChannelID(penultimateUser);
+
         botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
 
         return new ResponseEntity<>(stringParser.getUnsubscribePerson(), headers, HttpStatus.OK);
