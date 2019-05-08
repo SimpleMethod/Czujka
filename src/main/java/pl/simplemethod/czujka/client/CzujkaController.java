@@ -165,6 +165,7 @@ public class CzujkaController {
             user_time = Time.valueOf(LocalTime.parse(text));
         } catch (DateTimeException e) {
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEnty());
+            return new ResponseEntity<>(stringParser.getLeavePersonEnty(), headers, HttpStatus.BAD_REQUEST);
         }
 
         Users find = repository.getUserByUsername(user_name);
