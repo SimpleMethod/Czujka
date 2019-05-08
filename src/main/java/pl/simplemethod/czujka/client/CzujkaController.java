@@ -150,7 +150,7 @@ public class CzujkaController {
         text = text.replaceAll("([^0-9:])+", "");
 
         if ((text.length() > 4 && text.charAt(2) != ':') || text.length() < 4) {
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEnty());
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
 
         } else if (text.length() == 4 && !text.contains(":")) {
             //dodaje : do parsowania czasu ze stringa
@@ -164,8 +164,8 @@ public class CzujkaController {
         try {
             user_time = Time.valueOf(LocalTime.parse(text));
         } catch (DateTimeException e) {
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEnty());
-            return new ResponseEntity<>(stringParser.getLeavePersonEnty(), headers, HttpStatus.BAD_REQUEST);
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
+            return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.BAD_REQUEST);
         }
 
         Users find = repository.getUserByUsername(user_name);
@@ -232,6 +232,6 @@ public class CzujkaController {
         String channel = botController.getUserPrivateChannelID(penultimateUser);
         botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
 
-        return new ResponseEntity<>(stringParser.getLeavePerson(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(stringParser.getUnsubscribePerson(), headers, HttpStatus.OK);
     }
 }
