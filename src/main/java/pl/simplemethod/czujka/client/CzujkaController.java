@@ -23,6 +23,7 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -144,12 +145,12 @@ public class CzujkaController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
+        String channel = botController.getUserPrivateChannelID(user_name);
         //usuwa wszystkie znaki poza cyframi i :
         text = text.replaceAll("([^0-9:])+", "");
 
         if ((text.length() > 4 && text.charAt(2) != ':') || text.length() < 4) {
-            String channel = botController.getUserPrivateChannelID(user_name);
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEnty());
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
 
         } else if (text.length() == 4 && !text.contains(":")) {
             //dodaje : do parsowania czasu ze stringa
@@ -158,7 +159,15 @@ public class CzujkaController {
             text = builder.toString();
         }
 
-        Time user_time = Time.valueOf(LocalTime.parse(text));
+        //przechwytywanie
+        Time user_time = Time.valueOf(LocalTime.MIN);
+        try {
+            user_time = Time.valueOf(LocalTime.parse(text));
+        } catch (DateTimeException e) {
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
+            return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.BAD_REQUEST);
+        }
+
         Users find = repository.getUserByUsername(user_name);
         Users user = new Users(user_name, user_time);
 
@@ -169,7 +178,6 @@ public class CzujkaController {
                 repository.save(user);
             }
         } catch (Exception e) {
-            String channel = botController.getUserPrivateChannelID(user_name);
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonNull());
         }
 
@@ -180,15 +188,14 @@ public class CzujkaController {
             String penultimateUser = repository.getPenultimateUserInQue();
 
             if (penultimateUser != null) {
-                String channel = botController.getUserPrivateChannelID(penultimateUser);
+                channel = botController.getUserPrivateChannelID(penultimateUser);
                 botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonFound());
             }
 
-            String channel = botController.getUserPrivateChannelID(penultimateUser);
+            channel = botController.getUserPrivateChannelID(penultimateUser);
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
 
         } else {
-            String channel = botController.getUserPrivateChannelID(user_name);
             botController.postRichChatMessage(channel, " ", stringParser.getQueuePerson(Integer.toString(que + 1)));
         }
 
@@ -225,6 +232,6 @@ public class CzujkaController {
         String channel = botController.getUserPrivateChannelID(penultimateUser);
         botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
 
-        return new ResponseEntity<>(stringParser.getLeavePerson(), headers, HttpStatus.OK);
+        return new ResponseEntity<>(stringParser.getUnsubscribePerson(), headers, HttpStatus.OK);
     }
 }
