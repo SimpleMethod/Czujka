@@ -18,7 +18,11 @@ public class StringParser {
     // Exceptions handlers
     private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj.\"}]}";
     private final static String leavePersonSaveNull = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd z bazą danych. Spróbuj ponownie :(\"}}]";
+
     private final static String leavePersonEntry = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wprowadzone dane są niepoprawne. Spróbuj ponownie! \\nPrawidłowy format godziny to \\\"HH:MM\\\".\"}}]";
+
+
+    private final static String leavePersonEntryPerson = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wprowadzone dane są niepoprawne. Spróbuj ponownie! \\nPrawidłowy format godziny to \\\"HH:MM\\\".\"}]}";
 
     // Use only for global messages (API -> chat.)!Wypisałeś się z dzisiejszego zamykania biura.
     private final static String unsubscribeGlobalBlock = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Użytkownik *user_name* wypisał się z dzisiejszego zamykania biura :cry:\"}}]";
@@ -32,6 +36,11 @@ public class StringParser {
     public String getLeavePersonEntry() {
         return leavePersonEntry;
     }
+
+    public  String getLeavePersonEntryPerson() {
+        return leavePersonEntryPerson;
+    }
+
 
     public String getLeavePersonSaveNull() {
         return getLeavePersonNull();

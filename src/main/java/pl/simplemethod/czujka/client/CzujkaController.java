@@ -91,7 +91,7 @@ public class CzujkaController {
         try {
             service.saveTime(user_name, user_id);
         } catch (DateTimeException e) {
-            return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.OK);
+            return new ResponseEntity<>(stringParser.getLeavePersonEntryPerson(), headers, HttpStatus.OK);
         }
 
         Integer que = service.getQueue();
