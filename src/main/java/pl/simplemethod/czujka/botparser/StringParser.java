@@ -1,5 +1,9 @@
 package pl.simplemethod.czujka.botparser;
 
+import pl.simplemethod.czujka.model.Users;
+
+import java.util.List;
+
 public class StringParser {
 
     // Use only for response!
@@ -14,6 +18,7 @@ public class StringParser {
     private final static String leavePersonFound = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Nie jesteś już ostatnią osobą wychodzącą z biura, nie zamykasz ;)\"}}]";
     private final static String leavePersonAttend = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Jesteś ostatnią osobą, zamykasz biuro :)\"}}]";
     private final static String queuePerson = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Jesteś *user_que* w kolejce\"}}]";
+    private final static String listPerson = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista ostatnich osób zapisanych do zamknięcia biura\", \"attachments\": *attachments* }";
 
     // Exceptions handlers
     private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj.\"}]}";
@@ -53,6 +58,11 @@ public class StringParser {
     public String getQueuePerson(String user_que) {
         String master =queuePerson;
         return master.replace("user_que", user_que);
+    }
+
+    public String getPersonList(String attachmentsJson) {
+        String master = listPerson;
+        return listPerson.replace("*attachments*", attachmentsJson);
     }
 
     public String getLeavePersonFound() {

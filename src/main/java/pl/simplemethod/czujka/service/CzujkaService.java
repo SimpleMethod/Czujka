@@ -84,16 +84,19 @@ public class CzujkaService {
         return jsonString.toString();
     }
 
+    @SuppressWarnings("unchecked")
     public String getJsonList() {
-        List<Users> users = repository.findAllByOrderByTimeAsc();
+        List<Users> users = repository.findAllByOrderByTimeDesc();
         org.json.simple.JSONArray array = new org.json.simple.JSONArray();
 
         for (int i = 0; i < users.size(); i++) {
-            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
-            object.put("Time", users.get(i).getTime());
-            object.put("Id", users.get(i).getId());
-            object.put("UserName", users.get(i).getUsername());
 
+            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
+            object.put("text", String.valueOf(i + 1) +
+                    " - " +
+                    users.get(i).getTime() +
+                    " - " +
+                    users.get(i).getUsername());
             array.add(object);
         }
         StringWriter jsonString = new StringWriter();

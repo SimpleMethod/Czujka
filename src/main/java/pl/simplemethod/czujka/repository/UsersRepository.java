@@ -19,7 +19,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     Users getUserByUsername(String username);
 
-    List<Users> findAllByOrderByTimeAsc();
+    List<Users> findAllByOrderByTimeDesc();
 
     @Modifying
     @Transactional

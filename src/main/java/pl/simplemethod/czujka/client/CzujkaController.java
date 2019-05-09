@@ -76,10 +76,8 @@ public class CzujkaController {
             return new ResponseEntity<>("", headers, HttpStatus.UNAUTHORIZED);
         }
 
-
-        return new ResponseEntity<>(service.getJsonList(), headers, HttpStatus.valueOf(201));
+        return new ResponseEntity<>(stringParser.getPersonList(service.getJsonList()), headers, HttpStatus.valueOf(201));
     }
-
 
     @PostMapping(path = "/czujka/zamykam", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
