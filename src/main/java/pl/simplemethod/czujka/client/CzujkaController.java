@@ -78,7 +78,7 @@ public class CzujkaController {
             headers.add("Content-Type", "application/json");
             return new ResponseEntity<>("", headers, HttpStatus.UNAUTHORIZED);
         }
-        logger.info(botController.postRichChatMessage(botController.getbotChannel(), " ", stringParser.getSignUpGlobalBlock(user_name, text)));
+
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
@@ -93,7 +93,7 @@ public class CzujkaController {
         } catch (DateTimeException e) {
             return new ResponseEntity<>(stringParser.getLeavePersonEntryPerson(), headers, HttpStatus.OK);
         }
-
+        logger.info(botController.postRichChatMessage(botController.getbotChannel(), " ", stringParser.getSignUpGlobalBlock(user_name, text)));
         Integer que = service.getQueue();
         if (que == 0) {
             String penultimateUser = service.getPenultimateUser();
