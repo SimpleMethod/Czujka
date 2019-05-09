@@ -53,8 +53,13 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/mapa", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerMaps(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
+    ResponseEntity<String> controllerMaps(@RequestParam("text") String token) {
         HttpHeaders headers = new HttpHeaders();
+        if (!botController.tokenAuth(token)) {
+            headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            return new ResponseEntity<>("", headers, HttpStatus.UNAUTHORIZED);
+        }
         headers.add("Content-Type", "application/json");
 
         return new ResponseEntity<>(service.getJsonMap(), headers, HttpStatus.valueOf(201));
@@ -62,9 +67,15 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerLists(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
+    ResponseEntity<String> controllerLists(@RequestParam("text") String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
+        if (!botController.tokenAuth(token)) {
+            headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            return new ResponseEntity<>("", headers, HttpStatus.UNAUTHORIZED);
+        }
+
 
         return new ResponseEntity<>(service.getJsonList(), headers, HttpStatus.valueOf(201));
     }
@@ -72,7 +83,7 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/zamykam", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerSave(HttpEntity<String> httpEntity, @RequestParam("token") String token, @RequestParam("user_name") String user_name, @RequestParam("text") String text, @RequestParam("user_id")String user_id) {
+    ResponseEntity<String> controllerSave(@RequestParam("token") String token, @RequestParam("user_name") String user_name, @RequestParam("text") String text, @RequestParam("user_id")String user_id) {
         if (!botController.tokenAuth(token)) {
             HttpHeaders headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
@@ -116,24 +127,20 @@ public class CzujkaController {
     public @ResponseBody
     ResponseEntity<String> controllerRemove(@RequestParam("token") String token, @RequestParam("user_name") String user_name) {
 
+        HttpHeaders headers = new HttpHeaders();
+        String penultimateUser = "";
+        headers.add("Content-Type", "application/json");
         if (!botController.tokenAuth(token)) {
-            HttpHeaders headers = new HttpHeaders();
+            headers = new HttpHeaders();
             headers.add("Content-Type", "application/json");
             return new ResponseEntity<>("", headers, HttpStatus.UNAUTHORIZED);
         }
-
-        logger.info(botController.postRichChatMessage(botController.getbotChannel(), " ", stringParser.getUnsubscribeGlobalBlock(user_name)));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Content-Type", "application/json");
-
-        String penultimateUser = "";
-
         try {
             penultimateUser = service.removeTimer(user_name);
         } catch (Exception exception) {
             return new ResponseEntity<>(stringParser.getLeavePersonNull(), headers, HttpStatus.OK);
         }
-
+        logger.info(botController.postRichChatMessage(botController.getbotChannel(), " ", stringParser.getUnsubscribeGlobalBlock(user_name)));
         String channel = botController.getUserPrivateChannelID(penultimateUser);
         botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
 

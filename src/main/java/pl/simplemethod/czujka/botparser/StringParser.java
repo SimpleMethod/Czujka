@@ -50,7 +50,7 @@ public class StringParser {
         return leavePersonAttend;
     }
 
-    public static String getQueuePerson(String user_que) {
+    public String getQueuePerson(String user_que) {
         String master =queuePerson;
         return master.replace("user_que", user_que);
     }
