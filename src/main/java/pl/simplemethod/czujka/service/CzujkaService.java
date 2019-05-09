@@ -39,7 +39,6 @@ public class CzujkaService {
                 repository.save(new Users(user_name, user_time, user_id));
             }
         } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -121,7 +120,6 @@ public class CzujkaService {
         try {
             user = repository.getPenultimateUserInQue();
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return user;
     }
@@ -131,7 +129,6 @@ public class CzujkaService {
         try {
             queue = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
         } catch (Exception e) {
-            e.printStackTrace();
         }
         return queue;
     }
