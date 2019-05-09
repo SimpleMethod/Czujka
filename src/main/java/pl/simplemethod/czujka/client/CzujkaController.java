@@ -91,7 +91,7 @@ public class CzujkaController {
         try {
             service.saveTime(user_name, user_id);
         } catch (DateTimeException e) {
-            return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.BAD_REQUEST);
+            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
         }
 
         Integer que = service.getQueue();
