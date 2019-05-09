@@ -2,9 +2,7 @@ package pl.simplemethod.czujka.client;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.validation.annotation.Validated;
@@ -12,24 +10,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import pl.simplemethod.czujka.botparser.BotController;
 import pl.simplemethod.czujka.botparser.StringParser;
-import pl.simplemethod.czujka.model.RoomStatus;
-import pl.simplemethod.czujka.model.Users;
-import pl.simplemethod.czujka.repository.RoomStatusRepository;
-import pl.simplemethod.czujka.repository.UsersRepository;
-
+import pl.simplemethod.czujka.service.CzujkaService;
 
 import javax.validation.ConstraintViolationException;
-import java.io.IOException;
-import java.io.StringWriter;
-import java.sql.Date;
-import java.sql.Time;
 import java.time.DateTimeException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
 
 @RestController
 @Validated
@@ -46,9 +30,7 @@ public class CzujkaController {
     StringParser stringParser;
 
     @Autowired
-    private UsersRepository repository;
-    @Autowired
-    private RoomStatusRepository roomRepository;
+    private CzujkaService service;
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -72,64 +54,19 @@ public class CzujkaController {
     @PostMapping(path = "/czujka/mapa", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerMaps(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
-        System.out.println(httpEntity.getBody());
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<RoomStatus> rooms = roomRepository.findAll();
-
-        //sortowanie opcjonalnie ?
-        rooms.sort(Comparator.comparing(RoomStatus::getRoomNumber));
-
-        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
-
-        for (int i = 0; i < rooms.size(); i++) {
-            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
-            System.out.println(rooms.get(i).getRoomNumber());
-            object.put("RoomNumber", rooms.get(i).getRoomNumber());
-            object.put("Id", rooms.get(i).getId());
-            object.put("Status", rooms.get(i).isOpen());
-
-            array.add(object);
-        }
-
-        StringWriter jsonString = new StringWriter();
-
-        try {
-            array.writeJSONString(jsonString);
-        } catch (IOException e) {}
-
-        return new ResponseEntity<>(jsonString.toString(), headers, HttpStatus.valueOf(201));
+        return new ResponseEntity<>(service.getJsonMap(), headers, HttpStatus.valueOf(201));
     }
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
     ResponseEntity<String> controllerLists(HttpEntity<String> httpEntity, @RequestParam("text") String token, @RequestParam("user_name") String user_name) {
-        System.out.println(httpEntity.getBody());
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
 
-        List<Users> users = repository.findAllByOrderByTimeAsc();
-        org.json.simple.JSONArray array = new org.json.simple.JSONArray();
-
-       for (int i = 0; i < users.size(); i++) {
-           org.json.simple.JSONObject object = new org.json.simple.JSONObject();
-           System.out.println(users.get(i).getUsername());
-           object.put("Time", users.get(i).getTime());
-           object.put("Id", users.get(i).getId());
-           object.put("UserName", users.get(i).getUsername());
-
-           array.add(object);
-       }
-
-        StringWriter jsonString = new StringWriter();
-
-        try {
-            array.writeJSONString(jsonString);
-        } catch (IOException e) {
-
-        }
-        return new ResponseEntity<>(jsonString.toString(), headers, HttpStatus.valueOf(201));
+        return new ResponseEntity<>(service.getJsonList(), headers, HttpStatus.valueOf(201));
     }
 
 
@@ -146,62 +83,34 @@ public class CzujkaController {
         headers.add("Content-Type", "application/json");
 
         String channel = botController.getUserPrivateChannelID(user_id);
-        //usuwa wszystkie znaki poza cyframi i :
-        text = text.replaceAll("([^0-9:])+", "");
 
-        if ((text.length() > 4 && text.charAt(2) != ':') || text.length() < 4) {
+        if(!service.timeParse(text)) {
             botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonEntry());
-
-        } else if (text.length() == 4 && !text.contains(":")) {
-            //dodaje : do parsowania czasu ze stringa
-            StringBuilder builder = new StringBuilder(text);
-            builder.insert(2, ':');
-            text = builder.toString();
         }
 
-        Time user_time = Time.valueOf(LocalTime.MIN);
         try {
-            user_time = Time.valueOf(LocalTime.parse(text));
+            service.saveTime(user_name, user_id);
         } catch (DateTimeException e) {
             return new ResponseEntity<>(stringParser.getLeavePersonEntry(), headers, HttpStatus.BAD_REQUEST);
         }
 
-        Users find = repository.getUserByUsername(user_name);
-
-        try {
-            if (find != null) {
-                repository.setUserTime(user_time, user_name);
-            } else {
-                Users user = new Users(user_name, user_time, user_id);
-                repository.save(user);
-            }
-        } catch (Exception e) {
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonNull());
-        }
-
-        Integer que = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
-        System.out.println("QUEUE: " + que);
-
+        Integer que = service.getQueue();
         if (que == 0) {
-            String penultimateUser = repository.getPenultimateUserInQue();
-            System.out.println(penultimateUser);
+            String penultimateUser = service.getPenultimateUser();
 
             if (penultimateUser != null) {
                 channel = botController.getUserPrivateChannelID(penultimateUser);
                 botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonFound());
+            } else {
+                botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
             }
-
-            channel = botController.getUserPrivateChannelID(user_id);
-            botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
 
         } else {
             botController.postRichChatMessage(channel, " ", stringParser.getQueuePerson(Integer.toString(que + 1)));
         }
 
-
         return new ResponseEntity<>(stringParser.getSignUpPerson(user_name, text), headers, HttpStatus.OK);
     }
-
 
     @PostMapping(path = "/czujka/wypisz", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
@@ -220,15 +129,12 @@ public class CzujkaController {
         String penultimateUser = "";
 
         try {
-            penultimateUser = repository.getPenultimateUserInQue();
-            repository.delete(repository.getUserByUsername(user_name));
-
+            penultimateUser = service.removeTimer(user_name);
         } catch (Exception exception) {
             return new ResponseEntity<>(stringParser.getLeavePersonNull(), headers, HttpStatus.OK);
         }
 
         String channel = botController.getUserPrivateChannelID(penultimateUser);
-
         botController.postRichChatMessage(channel, " ", stringParser.getLeavePenultimatePerson());
 
         return new ResponseEntity<>(stringParser.getUnsubscribePerson(), headers, HttpStatus.OK);
