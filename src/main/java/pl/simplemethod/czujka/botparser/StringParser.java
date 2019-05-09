@@ -19,6 +19,8 @@ public class StringParser {
     private final static String leavePersonAttend = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Jesteś ostatnią osobą, zamykasz biuro :)\"}}]";
     private final static String queuePerson = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Jesteś *user_que* w kolejce\"}}]";
     private final static String listPerson = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista ostatnich osób zapisanych do zamknięcia biura\", \"attachments\": *attachments* }";
+    private final static String emptyListPerson = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista ostatnich osób zapisanych do zamknięcia biura\" }";
+
 
     // Exceptions handlers
     private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj.\"}]}";
@@ -61,8 +63,11 @@ public class StringParser {
     }
 
     public String getPersonList(String attachmentsJson) {
-        String master = listPerson;
-        return listPerson.replace("*attachments*", attachmentsJson);
+        if (attachmentsJson == null) {
+            return emptyListPerson;
+        } else {
+            return listPerson.replace("*attachments*", attachmentsJson);
+        }
     }
 
     public String getLeavePersonFound() {

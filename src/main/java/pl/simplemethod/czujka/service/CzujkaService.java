@@ -90,7 +90,6 @@ public class CzujkaService {
         org.json.simple.JSONArray array = new org.json.simple.JSONArray();
 
         for (int i = 0; i < users.size(); i++) {
-
             org.json.simple.JSONObject object = new org.json.simple.JSONObject();
             object.put("text", String.valueOf(i + 1) +
                     " - " +
@@ -99,6 +98,11 @@ public class CzujkaService {
                     users.get(i).getUsername());
             array.add(object);
         }
+
+        if (array.isEmpty()) {
+            return null;
+        }
+
         StringWriter jsonString = new StringWriter();
 
         try {

@@ -53,7 +53,7 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/mapa", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerMaps(@RequestParam("text") String token) {
+    ResponseEntity<String> controllerMaps(@RequestParam("token") String token) {
         HttpHeaders headers = new HttpHeaders();
         if (!botController.tokenAuth(token)) {
             headers = new HttpHeaders();
@@ -67,7 +67,7 @@ public class CzujkaController {
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public @ResponseBody
-    ResponseEntity<String> controllerLists(@RequestParam("text") String token) {
+    ResponseEntity<String> controllerLists(@RequestParam("token") String token) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Type", "application/json");
         if (!botController.tokenAuth(token)) {
