@@ -1,8 +1,6 @@
 package pl.simplemethod.czujka.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import pl.simplemethod.czujka.model.RoomStatus;
 import pl.simplemethod.czujka.model.Users;
@@ -12,10 +10,11 @@ import pl.simplemethod.czujka.repository.UsersRepository;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class CzujkaService {
@@ -133,10 +132,25 @@ public class CzujkaService {
 
     public Integer getQueue() {
         Integer queue = null;
+
+        Date date = new Date();
+
+        Calendar c = new GregorianCalendar();
+        c.set(Calendar.HOUR_OF_DAY, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        Date midnight = c.getTime();
+
         try {
-            queue = repository.getYourQue(Time.valueOf(LocalTime.parse(text)));
-        } catch (Exception e) {
-        }
+            if(midnight.before(date)) {
+                queue = repository.getYourQueBeforeMidnight(Time.valueOf(LocalTime.parse(text)));
+            }
+            else {
+                queue = repository.getYourQueAfterMidnight(Time.valueOf(LocalTime.parse(text)));
+            }
+
+        } catch (Exception e) {}
         return queue;
     }
+
 }
