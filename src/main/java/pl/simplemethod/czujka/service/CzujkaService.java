@@ -24,10 +24,17 @@ public class CzujkaService {
     private RoomStatusRepository roomRepository;
 
     private String text;
+    private boolean reverse = false;
 
     public void saveTime(String user_name, String user_id) throws DateTimeException {
         //this line throws DateTimeException
         Time user_time = Time.valueOf(LocalTime.parse(text));
+
+        String[] con = text.split(":");
+        if(con[0].equals("01") || con[0].equals("02") || con.equals("03")) {
+            System.out.println("jest mamy boolean wartosc " + text);
+            this.reverse = true;
+        }
 
         Users find = repository.getUserByUsername(user_name);
 
@@ -118,6 +125,12 @@ public class CzujkaService {
         String penultimateUser = getPenultimateUser();
         repository.delete(repository.getUserByUsername(user_name));
 
+        String[] con = text.split(":");
+        if(con[0].equals("01") || con[0].equals("02") || con.equals("03")) {
+            System.out.println("jest mamy boolean wartosc " + text );
+            this.reverse = false;
+        }
+
         return penultimateUser;
     }
 
@@ -133,16 +146,8 @@ public class CzujkaService {
     public Integer getQueue() {
         Integer queue = null;
 
-        Date date = new Date();
-
-        Calendar c = new GregorianCalendar();
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        Date midnight = c.getTime();
-
         try {
-            if(midnight.before(date)) {
+            if(!reverse) {
                 queue = repository.getYourQueBeforeMidnight(Time.valueOf(LocalTime.parse(text)));
             }
             else {
