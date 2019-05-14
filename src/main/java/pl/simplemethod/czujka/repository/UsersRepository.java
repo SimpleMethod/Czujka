@@ -26,10 +26,10 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
     @Query(value = "update users u set u.time = :NewTime where u.username = :Username", nativeQuery = true)
     void setUserTime(@Param("NewTime") Time time, @Param("Username")String username);
 
-    @Query(value = "SELECT COUNT(*) FROM users WHERE time > :UserTime", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM users WHERE users.time > :UserTime", nativeQuery = true)
     Integer getYourQueBeforeMidnight(@Param("UserTime")Time time);
 
-    @Query(value = "SELECT COUNT(*) FROM users WHERE time < :UserTime", nativeQuery = true)
+    @Query(value = "SELECT COUNT(*) FROM users WHERE users.time < :UserTime and users.time < '03:00'", nativeQuery = true)
     Integer getYourQueAfterMidnight(@Param("UserTime")Time time);
 
     @Query(value = "SELECT user_id FROM users ORDER BY users.time DESC LIMIT 1 offset 1", nativeQuery = true)
