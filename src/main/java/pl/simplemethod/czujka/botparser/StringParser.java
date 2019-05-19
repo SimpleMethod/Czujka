@@ -1,9 +1,5 @@
 package pl.simplemethod.czujka.botparser;
 
-import pl.simplemethod.czujka.model.Users;
-
-import java.util.List;
-
 public class StringParser {
 
     // Use only for response!
@@ -21,13 +17,14 @@ public class StringParser {
     private final static String listPerson = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista ostatnich osób zapisanych do zamknięcia biura\", \"attachments\": *attachments* }";
     private final static String emptyListPerson = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista ostatnich osób zapisanych do zamknięcia biura\" }";
 
+    private final static String listRoom = "{ \"response_type\": \"ephmeral\", \"text\": \"Lista pomieszczeń\", \"attachments\": *room_attachments* }";
+
 
     // Exceptions handlers
     private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj.\"}]}";
     private final static String leavePersonSaveNull = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd z bazą danych. Spróbuj ponownie :(\"}}]";
 
     private final static String leavePersonEntry = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wprowadzone dane są niepoprawne. Spróbuj ponownie! \\nPrawidłowy format godziny to \\\"HH:MM\\\".\"}}]";
-
 
     private final static String leavePersonEntryPerson = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wprowadzone dane są niepoprawne. Spróbuj ponownie! \\nPrawidłowy format godziny to \\\"HH:MM\\\".\"}]}";
 
@@ -70,6 +67,10 @@ public class StringParser {
         }
     }
 
+    public String getRoomList(String attachemntsJson) {
+        return listRoom.replace("*room_attachments*", attachemntsJson);
+    }
+
     public String getLeavePersonFound() {
         return leavePersonFound;
     }
@@ -88,7 +89,7 @@ public class StringParser {
 
     public String getUnsubscribeGlobal(String user_name)
     {
-        String master =unsubscribeGlobal;
+        String master = unsubscribeGlobal;
         return master.replace("user_name", user_name);
     }
     public String getSignUpPerson( String user_name, String close_hours)

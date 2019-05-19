@@ -62,7 +62,7 @@ public class CzujkaController {
         }
         headers.add("Content-Type", "application/json");
 
-        return new ResponseEntity<>(service.getJsonMap(), headers, HttpStatus.valueOf(201));
+        return new ResponseEntity<>(stringParser.getRoomList(service.getJsonMap()), headers, HttpStatus.valueOf(201));
     }
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

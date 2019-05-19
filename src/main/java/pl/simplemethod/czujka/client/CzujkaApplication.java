@@ -9,7 +9,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import pl.simplemethod.czujka.botparser.BotController;
 import pl.simplemethod.czujka.botparser.StringParser;
-import pl.simplemethod.czujka.service.CzujkaService;
 
 @SpringBootApplication
 @EntityScan("pl.simplemethod.czujka")
@@ -24,20 +23,16 @@ public class CzujkaApplication {
 	}
 
 	@Bean
-	public StringParser stringParser()
-	{
+	public StringParser stringParser() {
 		return new StringParser();
 	}
 
 	@Bean
-	public String string()
-	{
+	public String string() {
 		return "";
 	}
 
 	public static void main(String[] args) {
 		SpringApplication.run(CzujkaApplication.class, args);
 	}
-
-
 }

@@ -1,5 +1,7 @@
 package pl.simplemethod.czujka.service;
 
+import org.aspectj.lang.annotation.SuppressAjWarnings;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pl.simplemethod.czujka.model.RoomStatus;
@@ -64,17 +66,20 @@ public class CzujkaService {
         return true;
     }
 
+    @SuppressWarnings("unchecked")
     public String getJsonMap() {
         List<RoomStatus> rooms = roomRepository.findAll();
         rooms.sort(Comparator.comparing(RoomStatus::getRoomNumber));
 
         org.json.simple.JSONArray array = new org.json.simple.JSONArray();
 
-        for (int i = 0; i < rooms.size(); i++) {
-            org.json.simple.JSONObject object = new org.json.simple.JSONObject();
-            object.put("RoomNumber", rooms.get(i).getRoomNumber());
-            object.put("Id", rooms.get(i).getId());
-            object.put("Status", rooms.get(i).isOpen());
+        for (RoomStatus room : rooms) {
+            JSONObject object = new JSONObject();
+            if (room.isOpen()) {
+                object.put("text", room.getRoomNumber() + " - *Otwarty*");
+            } else {
+                object.put("text", room.getRoomNumber() + " - Zamknięty");
+            }
 
             array.add(object);
         }
