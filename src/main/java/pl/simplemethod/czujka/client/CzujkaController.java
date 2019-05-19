@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import pl.simplemethod.czujka.botparser.BotController;
 import pl.simplemethod.czujka.botparser.StringParser;
+import pl.simplemethod.czujka.model.RoomStatus;
 import pl.simplemethod.czujka.service.CzujkaService;
 
 import javax.validation.ConstraintViolationException;
@@ -63,6 +64,21 @@ public class CzujkaController {
         headers.add("Content-Type", "application/json");
 
         return new ResponseEntity<>(stringParser.getRoomList(service.getJsonMap()), headers, HttpStatus.valueOf(201));
+    }
+
+    @PutMapping(path = "/czujka/mapa/{id}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public @ResponseBody ResponseEntity<RoomStatus> changeRoomStatus(@PathVariable Long id,
+                                                                     @RequestParam("status") Boolean status,
+                                                                     @RequestParam("token") String token) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-Type", "application/json");
+        if (!botController.tokenAuth(token)) {
+            headers = new HttpHeaders();
+            headers.add("Content-Type", "application/json");
+            return new ResponseEntity<>(new RoomStatus(), headers, HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity<>(service.changeRoomStatus(id, status), headers, HttpStatus.valueOf(201));
     }
 
     @PostMapping(path = "/czujka/lista", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

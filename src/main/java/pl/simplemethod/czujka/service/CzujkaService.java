@@ -163,4 +163,13 @@ public class CzujkaService {
         return queue;
     }
 
+    public RoomStatus changeRoomStatus(Long id, Boolean status) {
+        if (status) {
+            roomRepository.openRoom(id);
+        } else {
+            roomRepository.closeRoom(id);
+        }
+
+        return roomRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    }
 }
