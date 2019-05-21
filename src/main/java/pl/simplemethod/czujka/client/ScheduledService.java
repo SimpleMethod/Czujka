@@ -18,14 +18,13 @@ public class ScheduledService {
     private ZonedDateTime currentDate = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"));
     private ZonedDateTime nextStartDate = currentDate.withHour(3).withMinute(33).withSecond(0);
 
-
     private class DropLists implements Runnable
     {
         @Override
         public void run() {
             logger.error("Wykonanie zadania");
             nextStartDate = nextStartDate.plusDays(1);
-            logger.error("Następne start: "+ nextStartDate.format(formatter));
+            logger.error("Następny start: "+ nextStartDate.format(formatter));
         }
     }
 
