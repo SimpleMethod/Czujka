@@ -15,7 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class ScheduledService {
     private static final Logger logger = LogManager.getLogger(ScheduledService.class);
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss z");
-    private  ZonedDateTime currentDate = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"));
+    private ZonedDateTime currentDate = ZonedDateTime.now(ZoneId.of("Europe/Warsaw"));
     private ZonedDateTime nextStartDate = currentDate.withHour(3).withMinute(33).withSecond(0);
 
 
