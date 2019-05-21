@@ -23,7 +23,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "update users u set u.time = :NewTime where u.username = :Username", nativeQuery = true)
+    @Query(value = "UPDATE users u SET u.time = :NewTime WHERE u.username = :Username", nativeQuery = true)
     void setUserTime(@Param("NewTime") Time time, @Param("Username")String username);
 
     @Query(value = "SELECT COUNT(*) FROM users WHERE users.time > :UserTime", nativeQuery = true)

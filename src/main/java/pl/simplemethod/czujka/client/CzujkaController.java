@@ -22,7 +22,6 @@ import java.time.DateTimeException;
 public class CzujkaController {
 
     private static final Logger logger = LogManager.getLogger(CzujkaController.class);
-    // TODO: 01.05.2019 Należy dodać reargowanie na sytuacje np. Brak chętnych do zamknięcia biura ale to jak będzie nam się chciało <raczej nie>
 
     @Autowired
     BotController botController;

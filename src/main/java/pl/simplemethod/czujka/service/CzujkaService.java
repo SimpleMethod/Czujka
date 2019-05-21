@@ -1,6 +1,5 @@
 package pl.simplemethod.czujka.service;
 
-import org.aspectj.lang.annotation.SuppressAjWarnings;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,16 +11,18 @@ import pl.simplemethod.czujka.repository.UsersRepository;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.sql.Time;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalTime;
-import java.util.*;
+import java.util.Comparator;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CzujkaService {
+
     @Autowired
     private UsersRepository repository;
+
     @Autowired
     private RoomStatusRepository roomRepository;
 

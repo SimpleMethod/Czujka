@@ -19,11 +19,11 @@ public interface RoomStatusRepository extends JpaRepository<RoomStatus, Long> {
 
     @Modifying
     @Transactional
-    @Query(value = "update room_status r set r.open = TRUE where r.id = :id", nativeQuery = true)
+    @Query(value = "UPDATE room_status r SET r.open = TRUE where r.id = :id", nativeQuery = true)
     void openRoom(@Param("id") Long id);
 
     @Modifying
     @Transactional
-    @Query(value = "update room_status r set r.open = FALSE where r.id = :id", nativeQuery = true)
+    @Query(value = "UPDATE room_status r SET r.open = FALSE WHERE r.id = :id", nativeQuery = true)
     void closeRoom(@Param("id") Long id);
 }
