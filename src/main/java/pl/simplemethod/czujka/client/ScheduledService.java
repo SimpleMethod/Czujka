@@ -36,7 +36,6 @@ public class ScheduledService {
             logger.warn("Czyszczenie bazy danych");
 
             usersRepository.deleteAll();
-            roomRepository.deleteAll();
 
             nextStartDate = nextStartDate.plusDays(1);
             logger.warn("Następny start: " + nextStartDate.format(formatter));
