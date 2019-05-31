@@ -26,9 +26,6 @@ public class ScheduledService {
     @Autowired
     private UsersRepository usersRepository;
 
-    @Autowired
-    private RoomStatusRepository roomRepository;
-
     private class DropLists implements Runnable {
 
         @Override

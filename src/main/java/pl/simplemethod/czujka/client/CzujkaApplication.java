@@ -24,7 +24,7 @@ public class CzujkaApplication {
 
 	@Bean
 	public BotController botController() {
-		return new BotController("xoxb-609016061122-622647790118-rXhxGVP2E1tyPPi6Redpx8O4", "iA2NXCB2ykk6Rhk6kkGHlB6o", "CJBC4QZLY");
+		return new BotController("xoxp-609016061122-620444144032-609019726451-4a38d62a7bc4ec66db5973849a21d093", "CmWERIAY9Rs5dOqJfLTG90n3", "CJBC4QZLY");
 	}
 
 	@Bean
