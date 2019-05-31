@@ -123,6 +123,7 @@ public class CzujkaController {
             String penultimateUser = service.getPenultimateUser();
 
             if (penultimateUser != null) {
+                botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonAttend());
                 channel = botController.getUserPrivateChannelID(penultimateUser);
                 botController.postRichChatMessage(channel, " ", stringParser.getLeavePersonFound());
             } else {

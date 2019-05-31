@@ -121,8 +121,11 @@ public class CzujkaService {
     }
 
     public String removeTimer(String user_name) throws Exception {
-        String penultimateUser = getPenultimateUser();
-        repository.delete(repository.getUserByUsername(user_name));
+
+        Users user = repository.getUserByUsername(user_name);
+
+        String penultimateUser = repository.getLastUserInQue(user.getTime());
+        repository.delete(user);
 
         return penultimateUser;
     }

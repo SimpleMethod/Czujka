@@ -32,4 +32,7 @@ public interface UsersRepository extends JpaRepository<Users, Long> {
 
     @Query(value = "SELECT user_id FROM users ORDER BY users.time DESC LIMIT 1 offset 1", nativeQuery = true)
     String getPenultimateUserInQue();
+
+    @Query(value = "SELECT user_id FROM users WHERE users.time < :UserTime ORDER BY users.time DESC  LIMIT 1;", nativeQuery = true)
+    String getLastUserInQue(@Param("UserTime")Time time);
 }

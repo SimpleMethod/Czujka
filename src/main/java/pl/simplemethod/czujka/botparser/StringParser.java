@@ -21,7 +21,7 @@ public class StringParser {
 
 
     // Exceptions handlers
-    private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj.\"}]}";
+    private final static String leavePersonNull = "{\"response_type\":\"ephemeral\",\"attachments\":[{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd, prawdopodobnie nie byłeś zapisany do zamykania biura dzisiaj, lub nie ma osoby zamykającej po tobie.\"}]}";
     private final static String leavePersonSaveNull = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wystąpił błąd z bazą danych. Spróbuj ponownie :(\"}}]";
 
     private final static String leavePersonEntry = "[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Wprowadzone dane są niepoprawne. Spróbuj ponownie! \\nPrawidłowy format godziny to \\\"HH:MM\\\".\"}}]";
